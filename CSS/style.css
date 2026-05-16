@@ -1,0 +1,1535 @@
+  /* Paleta de colores y variables globales */
+  :root {
+    --sand: #D4B896;
+    --cream: #F5EDE0;
+    --brown: #9B5E2A;
+    --dark: #3E2005;
+    --warm: #C4844A;
+    --leaf: #5A8A3C;
+    --white: #FFFFFF;
+    --offwhite: #FAF6F0;
+  }
+
+  /* Reset: caja y quitar márgenes/paddings por defecto */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Comportamiento de scroll suave */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Estilos base del body: fuente, fondo y color principal */
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--offwhite);
+    color: var(--dark);
+    overflow-x: hidden;
+  }
+
+  /* NAV: barra de navegación fija y su estilo */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 60px;
+    background: rgba(250, 246, 240, 0.9);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(155, 94, 42, 0.12);
+  }
+
+  /* Logo de la navegación: fuente serif y color distintivo */
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: var(--brown);
+  }
+
+  /* Variación del logo (texto destacado en cursiva) */
+  .nav-logo span {
+    color: var(--warm);
+    font-style: italic;
+  }
+
+  /* Enlaces de navegación: horizontal con separación */
+  .nav-links {
+    display: flex;
+    gap: 34px;
+    list-style: none;
+  }
+
+  /* Botón hamburguesa (oculto en desktop) */
+  .nav-toggle {
+    display: none;
+    background: transparent;
+    border: none;
+    width: 48px;
+    height: 48px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .nav-toggle .hamburger {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--dark);
+    position: relative;
+    transition: transform .25s ease;
+  }
+
+  .nav-toggle .hamburger::before,
+  .nav-toggle .hamburger::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 22px;
+    height: 2px;
+    background: var(--dark);
+    transition: transform .25s ease, top .25s ease, bottom .25s ease;
+  }
+
+  .nav-toggle .hamburger::before { top: -7px; }
+  .nav-toggle .hamburger::after { bottom: -7px; }
+
+  .nav-toggle.open .hamburger { background: transparent; }
+  .nav-toggle.open .hamburger::before { transform: rotate(45deg); top: 0; }
+  .nav-toggle.open .hamburger::after { transform: rotate(-45deg); bottom: 0; }
+
+  /* Estilo de los enlaces: mayúsculas y transición de color */
+  .nav-links a {
+    text-decoration: none;
+    color: var(--dark);
+    font-size: .82rem;
+    font-weight: 500;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    transition: color .2s;
+  }
+
+  /* Estilos para el toggle insertado dinámicamente */
+  .nav-toggle {
+    display: none; /* visible solo en móvil vía media queries */
+    background: transparent;
+    border: none;
+    width: 46px;
+    height: 46px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .nav-toggle .hamburger {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--dark);
+    position: relative;
+    transition: transform .25s ease, background .25s ease;
+  }
+
+  .nav-toggle .hamburger::before,
+  .nav-toggle .hamburger::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 22px;
+    height: 2px;
+    background: var(--dark);
+    transition: transform .25s ease, top .25s ease, bottom .25s ease;
+  }
+
+  .nav-toggle .hamburger::before { top: -7px; }
+  .nav-toggle .hamburger::after { bottom: -7px; }
+
+  .nav-toggle.open .hamburger { background: transparent; }
+  .nav-toggle.open .hamburger::before { transform: rotate(45deg); top: 0; }
+  .nav-toggle.open .hamburger::after { transform: rotate(-45deg); bottom: 0; }
+
+  /* Hover de enlaces: cambia a color marrón */
+  .nav-links a:hover {
+    color: var(--brown);
+  }
+
+  /* Botón CTA en nav: botón redondeado y destacado */
+  .nav-cta {
+    background: var(--brown) !important;
+    color: var(--white) !important;
+    padding: 10px 24px;
+    border-radius: 30px;
+  }
+
+  /* Hover CTA: oscurece el fondo */
+  .nav-cta:hover {
+    background: var(--dark) !important;
+  }
+
+  /* HERO: sección principal con imagen y texto */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding: 130px 60px 90px;
+  }
+
+  /* Fondo decorativo (blob) 1: forma animada y semi-transparente */
+  .hero-bg-blob {
+    position: absolute;
+    top: -100px;
+    right: -200px;
+    width: 700px;
+    height: 700px;
+    background: var(--sand);
+    opacity: .5;
+    border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%;
+    animation: morphBlob 9s ease-in-out infinite alternate;
+  }
+
+  /* Fondo decorativo (blob) 2: segundo elemento animado */
+  .hero-bg-blob2 {
+    position: absolute;
+    bottom: -180px;
+    left: -160px;
+    width: 520px;
+    height: 520px;
+    background: var(--cream);
+    opacity: .75;
+    border-radius: 45% 55% 40% 60% / 60% 40% 60% 40%;
+    animation: morphBlob 11s ease-in-out infinite alternate-reverse;
+  }
+
+  /* Animación para morphing de las formas blob */
+  @keyframes morphBlob {
+    from {
+      border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%;
+      transform: rotate(0deg) scale(1);
+    }
+
+    to {
+      border-radius: 45% 55% 60% 40% / 60% 40% 55% 45%;
+      transform: rotate(5deg) scale(1.03);
+    }
+  }
+
+  /* Contenedor interno del hero: layout flexible entre texto e imagen */
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    gap: 70px;
+    align-items: center;
+    width: 100%;
+  }
+
+  /* Columna de texto del hero */
+  .hero-text {
+    flex: 1;
+  }
+
+  /* Pequeño encabezado encima del título (eyebrow) */
+  .hero-eyebrow {
+    font-size: .75rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--warm);
+    font-weight: 600;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  /* Línea decorativa antes del eyebrow */
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 30px;
+    height: 2px;
+    background: var(--warm);
+    border-radius: 2px;
+  }
+
+  /* Título principal del hero: tipografía grande y fuerte */
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 6vw, 5.2rem);
+    font-weight: 900;
+    line-height: 1.05;
+    color: var(--dark);
+    margin-bottom: 26px;
+  }
+
+  /* Palabra enfatizada dentro del título */
+  .hero-title em {
+    color: var(--brown);
+    font-style: italic;
+  }
+
+  /* Subtítulo/descripción del hero */
+  .hero-sub {
+    font-size: 1rem;
+    color: #7A5C3A;
+    line-height: 1.8;
+    max-width: 460px;
+    margin-bottom: 42px;
+  }
+
+  /* Contenedor de botones/acciones del hero */
+  .hero-actions {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  /* Botón primario: fondo oscuro, bordes redondeados y sombra */
+  .btn-primary {
+    background: var(--brown);
+    color: var(--white);
+    padding: 16px 36px;
+    border-radius: 40px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: .88rem;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    transition: all .3s;
+    box-shadow: 0 8px 28px rgba(155, 94, 42, .35);
+
+  }
+
+  /* Botón secundario: fondo claro con borde */
+  .btn-secondary {
+    background: var(--white);
+    color: var(--brown);
+    padding: 16px 36px;
+    border-radius: 40px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: .88rem;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    border: 2px solid var(--brown);
+    transition: all .3s;
+  }
+
+  /* Hover botón primario: mueve y oscurece */
+  .btn-primary:hover {
+    background: var(--dark);
+    transform: translateY(-2px);
+    box-shadow: 0 14px 36px rgba(62, 32, 5, .4);
+  }
+
+  /* Estilo tipo enlace con subrayado bottom (ghost) */
+  .btn-ghost {
+    color: var(--brown);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: .88rem;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    border-bottom: 2px solid var(--brown);
+    padding-bottom: 2px;
+    transition: all .2s;
+  }
+
+  /* Hover ghost: oscurece texto y borde */
+  .btn-ghost:hover {
+    color: var(--dark);
+    border-color: var(--dark);
+  }
+
+  /* Hero image: contenedor visual a la derecha */
+  .hero-visual {
+    flex-shrink: 0;
+    width: 420px;
+    position: relative;
+  }
+
+  /* Marco de la imagen hero: forma orgánica y animación flotante */
+  .hero-img-wrap {
+    width: 380px;
+    height: 380px;
+    background: var(--brown);
+    border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%;
+    overflow: hidden;
+    border: 6px solid var(--white);
+    box-shadow: 0 24px 60px rgba(155, 94, 42, .4);
+    animation: morphBlob 9s ease-in-out infinite alternate, floatY 4s ease-in-out infinite;
+  }
+
+  .hero-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Animación simple de flotación vertical */
+  @keyframes floatY {
+
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(-14px);
+    }
+  }
+
+  /* Pequeña placa o badge sobre la imagen hero */
+  .hero-badge {
+    position: absolute;
+    bottom: 10px;
+    right: -10px;
+    background: var(--white);
+    border-radius: 16px;
+    padding: 14px 20px;
+    box-shadow: 0 8px 24px rgba(62, 32, 5, .15);
+    font-size: .78rem;
+    font-weight: 600;
+    color: var(--dark);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* STRIP: cinta horizontal con elementos en movimiento */
+  .strip {
+    background: var(--brown);
+    padding: 20px 0;
+    overflow: hidden;
+  }
+
+  /* Pista deslizante que anima los items dentro de la strip */
+  .strip-track {
+    display: flex;
+    gap: 60px;
+    animation: slideTrack 22s linear infinite;
+    white-space: nowrap;
+  }
+
+  @keyframes slideTrack {
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  /* Elementos dentro de la strip: estilo pequeño y uppercase */
+  .strip-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--cream);
+    font-size: .75rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 500;
+    flex-shrink: 0;
+  }
+
+  .strip-item::before {
+    content: '✦';
+    color: var(--sand);
+  }
+
+  /* SECTIONS: espaciamiento genérico para secciones */
+  .section {
+    padding: 100px 60px;
+  }
+
+  /* Contenedor interno para centrar contenido */
+  .section-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: .72rem;
+    letter-spacing: 3.5px;
+    text-transform: uppercase;
+    color: var(--warm);
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.9rem, 3.5vw, 2.8rem);
+    font-weight: 900;
+    color: var(--dark);
+    line-height: 1.15;
+    margin-bottom: 22px;
+  }
+
+  /* HISTORIA: grid horizontal con imagen y texto */
+  .historia-grid {
+    display: flex;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .historia-img-col {
+    flex-shrink: 0;
+    width: 400px;
+  }
+
+  /* Marco para la imagen de la historia: fondo claro y sombra */
+  .historia-img-frame {
+    width: 100%;
+    height: 360px;
+    background: var(--cream);
+    border-radius: 32px;
+    overflow: hidden;
+    box-shadow: 0 16px 48px rgba(155, 94, 42, .2);
+    position: relative;
+  }
+
+  .historia-img-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Etiqueta con el año sobre la imagen (posicionada) */
+  .historia-year {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background: var(--brown);
+    color: var(--cream);
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    padding: 12px 20px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(155, 94, 42, .4);
+  }
+
+  .historia-text {
+    flex: 1;
+  }
+
+  .historia-text p {
+    font-size: .97rem;
+    color: #6B4F30;
+    line-height: 1.85;
+    margin-bottom: 16px;
+  }
+
+  /* Tag del fundador: pequeño recuadro con borde izquierdo */
+  .founder-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--cream);
+    padding: 14px 20px;
+    border-radius: 14px;
+    border-left: 4px solid var(--brown);
+    margin-top: 8px;
+  }
+
+  .founder-tag .emo {
+    font-size: 1.5rem;
+  }
+
+  .founder-tag strong {
+    font-size: .9rem;
+    color: var(--dark);
+    display: block;
+  }
+
+  .founder-tag span {
+    font-size: .78rem;
+    color: var(--warm);
+  }
+
+  /* MISIÓN: fondo oscuro para sección Misión/Visión */
+  .mv-bg {
+    background: var(--dark);
+    padding: 100px 60px;
+  }
+
+  .mv-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 36px;
+  }
+
+  /* Tarjeta dentro de MV: fondo translúcido y efecto hover */
+  .mv-card {
+    background: rgba(255, 255, 255, .05);
+    border: 1px solid rgba(212, 184, 150, .18);
+    border-radius: 24px;
+    padding: 48px 40px;
+    position: relative;
+    overflow: hidden;
+    transition: transform .3s, box-shadow .3s;
+  }
+
+  .mv-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, .3);
+  }
+
+  /* Decoración circular sutil dentro de la tarjeta MV */
+  .mv-card::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 160px;
+    height: 160px;
+    background: var(--brown);
+    border-radius: 50%;
+    opacity: .1;
+  }
+
+  .mv-card-img {
+    width: 100%;
+    height: 180px;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+
+  .mv-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .mv-icon {
+    font-size: 2.2rem;
+    margin-bottom: 16px;
+  }
+
+  .mv-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: var(--sand);
+    margin-bottom: 14px;
+  }
+
+  .mv-card p {
+    font-size: .92rem;
+    line-height: 1.8;
+    color: rgba(245, 237, 224, .72);
+  }
+
+  /* PRODUCTOS: sección con fondo crema */
+  .productos-bg {
+    background: var(--cream);
+    padding: 100px 60px;
+  }
+
+  .productos-header {
+    max-width: 1200px;
+    margin: 0 auto 56px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+
+  .productos-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 28px;
+  }
+
+  /* Tarjeta de producto: efecto hover y borde redondeado */
+  .prod-card {
+    background: var(--white);
+    border-radius: 28px;
+    overflow: hidden;
+    transition: transform .3s, box-shadow .3s;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .prod-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 24px 56px rgba(155, 94, 42, .22);
+  }
+
+  /* Línea degradada en la base de la tarjeta que aparece al hover */
+  .prod-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--brown), var(--warm));
+    transform: scaleX(0);
+    transition: transform .3s;
+  }
+
+  .prod-card:hover::after {
+    transform: scaleX(1);
+  }
+
+  /* Contenedor de imagen principal del producto */
+  .prod-img {
+    width: 100%;
+    height: 370px;
+    overflow: hidden;
+    position: relative;
+    background: var(--cream);
+  }
+
+  .prod-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .4s;
+  }
+
+  /* Hover: agranda la imagen dentro de la tarjeta */
+  .prod-card:hover .prod-img img {
+    transform: scale(1.06);
+  }
+
+  .prod-img-double {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 220px;
+  }
+
+  .prod-img-double img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .4s;
+  }
+
+  .prod-card:hover .prod-img-double img {
+    transform: scale(1.06);
+  }
+
+  /* Cuerpo de la tarjeta con nombre y descripción */
+  .prod-body {
+    padding: 26px 26px 28px;
+  }
+
+  .prod-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 8px;
+  }
+
+  .prod-desc {
+    font-size: .86rem;
+    color: #7A5C3A;
+    line-height: 1.68;
+    margin-bottom: 16px;
+  }
+
+  .prod-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 14px;
+  }
+
+  .pbadge {
+    font-size: .67rem;
+    font-weight: 600;
+    letter-spacing: .4px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 20px;
+    background: var(--cream);
+    color: var(--brown);
+    border: 1px solid rgba(155, 94, 42, .18);
+  }
+
+  .pbadge.vegan {
+    background: #E8F0E0;
+    color: var(--leaf);
+    border-color: rgba(90, 138, 60, .22);
+  }
+
+  .shelf {
+    font-size: .73rem;
+    color: var(--sand);
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* BENEFICIOS: lista de beneficios con visual */
+  .ben-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .ben-list {
+    list-style: none;
+  }
+
+  /* Elementos de la lista de beneficios: separadores y alineación */
+  .ben-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+    padding: 22px 0;
+    border-bottom: 1px solid rgba(212, 184, 150, .38);
+  }
+
+  .ben-list li:last-child {
+    border-bottom: none;
+  }
+
+  /* Icono de beneficio: caja cuadrada redondeada con sombra */
+  .ben-ico {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    background: var(--brown);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    box-shadow: 0 6px 18px rgba(155, 94, 42, .28);
+  }
+
+  .ben-txt strong {
+    display: block;
+    font-size: .93rem;
+    color: var(--dark);
+    margin-bottom: 4px;
+  }
+
+  .ben-txt span {
+    font-size: .84rem;
+    color: #7A5C3A;
+    line-height: 1.6;
+  }
+
+  .ben-visual {
+    position: relative;
+  }
+
+  /* Imagen decorativa circular en beneficios */
+  .ben-img-blob {
+    width: 420px;
+    height: 420px;
+    background: linear-gradient(135deg, var(--sand) 0%, var(--cream) 100%);
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 24px 60px rgba(155, 94, 42, .22);
+    margin: 0 auto;
+    animation: floatY 5s ease-in-out infinite;
+  }
+
+  .ben-img-blob img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .mini-float {
+    position: absolute;
+    background: var(--white);
+    border-radius: 14px;
+    padding: 10px 16px;
+    box-shadow: 0 8px 24px rgba(62, 32, 5, .12);
+    font-size: .78rem;
+    font-weight: 600;
+    color: var(--dark);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .mf1 {
+    top: 30px;
+    left: -10px;
+  }
+
+  .mf2 {
+    bottom: 50px;
+    right: -20px;
+  }
+
+  .mf3 {
+    top: 48%;
+    left: -40px;
+  }
+
+  /* USO: sección con fondo marrón para usos del producto */
+  .uso-bg {
+    background: var(--brown);
+    padding: 100px 60px;
+  }
+
+  .uso-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .uso-bg .section-label {
+    color: var(--sand);
+  }
+
+  .uso-bg .section-title {
+    color: var(--white);
+  }
+
+  .uso-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 18px;
+    margin-top: 48px;
+  }
+
+  /* Tarjetas de uso: fondo translúcido y efecto hover */
+  .uso-card {
+    background: rgba(255, 255, 255, .1);
+    border: 1px solid rgba(255, 255, 255, .14);
+    border-radius: 20px;
+    padding: 26px 22px;
+    text-align: center;
+    transition: background .2s, transform .2s;
+  }
+
+  .uso-card:hover {
+    background: rgba(255, 255, 255, .18);
+    transform: translateY(-4px);
+  }
+
+  .uso-card .ue {
+    font-size: 1.9rem;
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .uso-card p {
+    font-size: .86rem;
+    color: rgba(245, 237, 224, .82);
+    line-height: 1.6;
+  }
+
+  /* INSTITUCIONAL: sección informativa con imagen y texto */
+  .inst-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    gap: 70px;
+    align-items: center;
+  }
+
+  .inst-img {
+    flex-shrink: 0;
+    width: 480px;
+    border-radius: 28px;
+    overflow: hidden;
+    box-shadow: 0 16px 48px rgba(155, 94, 42, .2);
+  }
+
+  .inst-img img {
+    width: 100%;
+    display: block;
+  }
+
+  .inst-text {
+    flex: 1;
+  }
+
+  .inst-text p {
+    font-size: .95rem;
+    color: #6B4F30;
+    line-height: 1.82;
+    margin-bottom: 14px;
+  }
+
+  /* ALMACEN: sección con fondo oscuro para consejos de almacenamiento */
+  .almacen-bg {
+    background: var(--dark);
+    padding: 100px 60px;
+  }
+
+  .almacen-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 70px;
+    align-items: center;
+  }
+
+  .almacen-img {
+    border-radius: 28px;
+    overflow: hidden;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, .3);
+  }
+
+  .almacen-img img {
+    width: 100%;
+    display: block;
+  }
+
+  .almacen-bg .section-label {
+    color: var(--sand);
+  }
+
+  .almacen-bg .section-title {
+    color: var(--white);
+  }
+
+  /* Tips de almacenaje: cajas con fondo tenue y borde */
+  .almacen-tips .tip {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: rgba(255, 255, 255, .07);
+    border: 1px solid rgba(212, 184, 150, .15);
+    padding: 16px 20px;
+    border-radius: 14px;
+    margin-bottom: 12px;
+  }
+
+  .almacen-tips .tip .te {
+    font-size: 1.4rem;
+    flex-shrink: 0;
+  }
+
+  .almacen-tips .tip p {
+    font-size: .88rem;
+    color: rgba(245, 237, 224, .75);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  /* CONTACTO: área de contacto centrada */
+  .contact-bg {
+    background: var(--offwhite);
+    padding: 100px 60px;
+  }
+
+  .contact-inner {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .c-cards {
+    display: flex;
+    gap: 22px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 44px;
+  }
+
+  /* Tarjetas de contacto: fondo blanco y efecto hover */
+  .c-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 26px 34px;
+    min-width: 190px;
+    box-shadow: 0 8px 28px rgba(155, 94, 42, .1);
+    transition: transform .2s;
+  }
+
+  .c-card:hover {
+    transform: translateY(-4px);
+  }
+
+  .c-card .ci {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+  }
+
+  .c-label {
+    font-size: .7rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--warm);
+    font-weight: 600;
+    margin-bottom: 5px;
+  }
+
+  .c-val {
+    font-size: .88rem;
+    color: var(--dark);
+    font-weight: 500;
+  }
+
+  /* FOOTER: pie de página oscuro y texto claro */
+  footer {
+    background: var(--dark);
+    color: var(--sand);
+    text-align: center;
+    padding: 38px 60px;
+    font-size: .8rem;
+  }
+
+  .foot-reg {
+    display: inline-block;
+    margin-top: 10px;
+    background: rgba(255, 255, 255, .06);
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: .7rem;
+    letter-spacing: 1px;
+    color: rgba(212, 184, 150, .55);
+  }
+
+  /* ===== CONTENEDOR REDES SOCIALES: centrado de iconos ===== */
+  .social-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+    margin-top: 25px;
+  }
+
+  /* ICONOS: estilo circular para enlaces sociales */
+  .social-icon {
+    width: 80px;
+    height: 80px;
+
+    border-radius: 50%;
+    background: #7A5C3A;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: white;
+    text-decoration: none;
+
+    /* TAMAÑO DEL ÍCONO */
+    font-size: 2rem;
+
+    transition: .3s;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, .15);
+  }
+
+  .social-icon:hover {
+    transform: translateY(-6px) scale(1.1);
+    background: #5e452d;
+  }
+
+  /* Enlaces por defecto: quitar subrayado y usar color heredado */
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  /* ===== CAROUSEL ===== */
+
+  .mv-carousel {
+    width: 100%;
+    max-width: 1100px;
+    margin: auto;
+    position: relative;
+    padding: 40px 70px;
+    overflow: hidden;
+    border-radius: 40px;
+
+  }
+
+  .mv-track {
+    position: relative;
+  }
+
+  .mv-slide {
+    display: none;
+  }
+
+  .mv-slide.active {
+    display: block;
+  }
+
+  .mv-card {
+    background: white;
+    border-radius: 35px;
+    padding: 70px 60px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, .08);
+    text-align: center;
+  }
+
+  .mv-card h3 {
+    font-size: 2.6rem;
+    margin-bottom: 35px;
+    color: #111;
+  }
+
+  .mv-card p {
+    line-height: 1.9;
+    margin-bottom: 22px;
+    color: #444;
+    font-size: 1.05rem;
+  }
+
+  /* ===== BOTONES FUERA DEL CARD ===== */
+
+  .mv-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+
+    width: 65px;
+    height: 65px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: var(--brown);
+    color: white;
+
+    font-size: 1.6rem;
+    cursor: pointer;
+
+    z-index: 10;
+    transition: .3s ease;
+  }
+
+  .mv-btn:hover {
+    transform: translateY(-50%) scale(1.08);
+  }
+
+  /* MÁS AFUERA */
+  .prev {
+    left: 0px;
+  }
+
+  .next {
+    right: 0px;
+  }
+
+  @keyframes fade {
+
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+  }
+
+  /* ===== RESPONSIVE ===== */
+
+  @media(max-width:768px) {
+
+    .mv-carousel {
+      padding: 90px 25px;
+    }
+
+    .mv-card {
+      padding: 50px 25px;
+    }
+
+    .mv-card h3 {
+      font-size: 2rem;
+    }
+
+    .mv-card p {
+      font-size: .96rem;
+    }
+
+    .mv-btn {
+      width: 52px;
+      height: 52px;
+      font-size: 1.2rem;
+    }
+
+    .prev {
+      left: -5px;
+    }
+
+    .next {
+      right: -5px;
+    }
+
+  }
+
+  /* RESPONSIVE: adaptaciones para pantallas pequeñas */
+  @media (max-width: 900px) {
+    nav {
+      padding: 15px 20px;
+    }
+
+    .nav-links {
+      display: none;
+    }
+    
+    /* Mostrar el toggle dinámico y ocultar enlaces en vista compacta por defecto
+       pero permitir que el JS los muestre cuando se abra */
+    .nav-toggle {
+      display: flex;
+    }
+    
+    .nav-links {
+      display: none;
+    }
+    
+    .nav-links.open {
+      display: flex;
+      position: fixed;
+      top: 68px;
+      right: 12px;
+      left: 12px;
+      flex-direction: column;
+      gap: 10px;
+      background: rgba(250,246,240,0.98);
+      padding: 12px;
+      border-radius: 10px;
+      box-shadow: 0 10px 36px rgba(0,0,0,0.12);
+      z-index: 200;
+    }
+    
+    .nav-links.open a {
+      padding: 10px 12px;
+    }
+
+    .section {
+      padding: 60px 20px;
+    }
+
+    .hero {
+      padding: 100px 20px 60px;
+    }
+
+    .hero-inner {
+      flex-direction: column;
+      gap: 40px;
+      text-align: center;
+    }
+
+    .hero-eyebrow {
+      justify-content: center;
+    }
+
+    .hero-actions {
+      justify-content: center;
+    }
+
+    .hero-visual {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    .hero-img-wrap {
+      width: 280px;
+      height: 280px;
+    }
+
+    .historia-grid,
+    .inst-inner {
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    /* Asegura que la sección beneficios quede en columna en móvil */
+    .ben-grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    /* Mostrar botón hamburguesa y menú desplegable en móvil */
+    .nav-toggle {
+      display: flex;
+    }
+
+    .nav-links {
+      display: none;
+    }
+
+    .nav-links.open {
+      display: flex;
+      position: fixed;
+      top: 68px;
+      right: 16px;
+      left: 16px;
+      flex-direction: column;
+      gap: 12px;
+      background: rgba(250,246,240,0.98);
+      padding: 14px;
+      border-radius: 12px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+      z-index: 150;
+    }
+
+    .nav-links.open a {
+      padding: 10px 12px;
+      border-radius: 8px;
+      display: block;
+    }
+
+    .historia-img-col,
+    .inst-img {
+      width: 100%;
+    }
+
+    .mv-grid,
+    .almacen-inner {
+      grid-template-columns: 1fr;
+    }
+
+    .mv-bg,
+    .almacen-bg,
+    .uso-bg,
+    .contact-bg,
+    .productos-bg {
+      padding: 60px 20px;
+    }
+
+    .ben-img-blob {
+      width: 300px;
+      height: 300px;
+    }
+  }
+
+  /* Más pequeños: teléfonos medianos */
+  @media (max-width: 600px) {
+    nav {
+      padding: 12px 16px;
+    }
+
+    .section {
+      padding: 40px 14px;
+    }
+
+    .hero {
+      padding: 80px 16px 40px;
+      min-height: 70vh;
+    }
+
+    .hero-inner {
+      gap: 28px;
+    }
+
+    .hero-title {
+      font-size: clamp(2rem, 8vw, 3rem);
+    }
+
+    .hero-sub {
+      max-width: 100%;
+      margin-inline: auto;
+    }
+
+    .hero-img-wrap {
+      width: 220px;
+      height: 220px;
+    }
+
+    .productos-grid {
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+
+    .prod-img {
+      aspect-ratio: 4 / 3;
+      min-height: 180px;
+    }
+
+    .prod-body {
+      padding: 18px 16px 20px;
+    }
+
+    .prod-name {
+      font-size: 1.02rem;
+    }
+
+    .prod-desc {
+      font-size: .88rem;
+    }
+
+    .social-icon {
+      width: 64px;
+      height: 64px;
+      font-size: 1.6rem;
+    }
+
+    footer {
+      padding: 28px 16px;
+      font-size: .78rem;
+    }
+  }
+
+  /* Muy pequeños: móviles compactos */
+  @media (max-width: 420px) {
+    .hero {
+      padding: 70px 12px 36px;
+    }
+
+    .hero-title {
+      font-size: clamp(1.6rem, 9vw, 2.2rem);
+    }
+
+    .hero-img-wrap {
+      width: 160px;
+      height: 160px;
+    }
+
+    .hero-sub {
+      font-size: .95rem;
+    }
+
+    .prod-body {
+      padding: 14px 12px 16px;
+    }
+
+    .prod-name {
+      font-size: .98rem;
+    }
+
+    .prod-desc {
+      font-size: .82rem;
+    }
+
+    .mv-card {
+      padding: 28px 16px;
+    }
+
+    .social-icon {
+      width: 52px;
+      height: 52px;
+      font-size: 1.25rem;
+    }
+
+    .nav-logo {
+      font-size: 1.25rem;
+    }
+  }
